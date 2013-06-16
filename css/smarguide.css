@@ -1,0 +1,31 @@
+@CHARSET "ISO-8859-1";
+#header{
+	height: 60px;
+	background-color: #008080;
+}
+#headerContent{
+	font-family: sans-serif,arial;
+	font-size: 24px;
+	color: white;
+	padding: 20px;
+	
+}
+body {
+	margin:0;
+}
+#footer{
+	height: 20px;
+	background-color: #008080;
+}
+#pageContent{
+	
+		font-family: sans-serif,arial;
+	font-size: 20px;
+}
+#toursel{
+		font-family: sans-serif,arial;
+	font-size: 20px;
+}
+#tourContent{
+	display:none;
+}
