@@ -14,20 +14,24 @@
 	<script src="js/GSVPano.js"></script>
 	<script src="js/Hyperlapse.js"></script>
 	<script> 
+	var employees = [
+{ "start_point" : 	new google.maps.LatLng(37.80862,-122.47695),"end_point" : new google.maps.LatLng(37.82524,-122.47945)  }, 
+{ "start_point" : 	 new google.maps.LatLng(51.50165,-0.09031),"end_point" : new google.maps.LatLng(51.50608,-0.09090)  }, 
+ ];
 	
-		var start_point = new google.maps.LatLng(37.80862,-122.47695);
-		var end_point = new google.maps.LatLng(37.82524,-122.47945);
+
 		var lookat_point = new google.maps.LatLng(37.81717,-122.47876);
 		var map, directions_renderer, directions_service, streetview_service, geocoder;
 		var start_pin, end_pin, pivot_pin, camera_pin;
 		var _elevation = 0;
 		var _route_markers = [];
-
+		
+	
 		function show(msg) {
 			document.getElementById("text").innerHTML = msg;
 		}
 
-		function init() {
+		function init(start_point,end_point) {
 
 			if( window.location.hash ) {
 				parts = window.location.hash.substr( 1 ).split( ',' );
@@ -143,11 +147,11 @@
 			var hyperlapse = new Hyperlapse(pano, {
 				lookat: lookat_point,
 				fov: 80,
-				millis: 50,
+				millis: 500,
 				width: window.innerWidth,
 				height: window.innerHeight,
 				zoom: 2,
-				use_lookat: true,
+				use_lookat: false,
 				distance_between_points: 5,
 				max_points: 100,
 				elevation: _elevation
@@ -185,6 +189,8 @@
 					"<br>End: " + end_pin.getPosition().toString() + 
 					"<br>Lookat: " + pivot_pin.getPosition().toString() + 
 					"<br>Ready." );
+				
+				
 			};
 
 			hyperlapse.onFrame = function(e) {
@@ -244,13 +250,13 @@
 				fov: 80, 
 				elevation:Math.floor(_elevation), 
 				tilt:0, 
-				millis:120, 
+				millis:500, 
 				offset_x:0,
 				offset_y:0,
 				offset_z:0,
 				position_x:0,
 				position_y:0,
-				use_lookat:true,
+				use_lookat:false,
 				screen_width: window.innerWidth,
 				screen_height: window.innerHeight,
 				generate:function(){
@@ -420,28 +426,52 @@
 			o.generate();
 		var element1=	document.getElementById("sub");
 		var element2=	document.getElementById("transportMode");
+
 			element1.addEventListener('click',loadPage,true);
-			element2.addEventListener('change',changespeed,true)
+			element2.addEventListener('change',changespeed,true);
+
             function changespeed(){
 				var option = document.getElementById("transportMode").value;
 				if (option == 3) {
-					hyperlapse.millis = 250;
+					hyperlapse.millis = 1000;
 				} else if (option == 2) {
-					hyperlapse.millis = 100;
+					hyperlapse.millis = 500;
 				} else if (option == 1) {
-					hyperlapse.millis = 50;
+					hyperlapse.millis = 250;
 				}
 			}
 			function loadPage() {
-
+				var option = document.getElementById("transportMode").value;
+				if (option == 3) {
+					hyperlapse.millis = 1000;
+				} else if (option == 2) {
+					hyperlapse.millis = 500;
+				} else if (option == 1) {
+					hyperlapse.millis = 250;
+				}
+				
 				document.getElementById("tourContent").style.display = "block";
 				document.getElementById("overlay").style.display = "block";
 				
 			}
+			function playSound(){
+			    
+				
+				window.open('http://media.tts-api.com/806d537a093238323eaf458c94e4829dcb1beb3a.mp3', '_blank', 'toolbar=0,location=0,menubar=0,width=400,Height=300');
+				}
 		}
 
-		window.onload = init;
-		
+		//window.onload = init;
+		function loadPage2(){
+			var option = document.getElementById("tourName").value;
+			var start_point = employees[option].start_point;
+			var end_point = employees[option].end_point;
+			init(start_point,end_point);
+			document.getElementById("tourContent").style.display = "block";
+			document.getElementById("overlay").style.display = "block";
+			document.getElementById("map").style.display = "block";
+
+		} 
 	</script> 
 <script type="text/javascript" src="js/smartguide.js"></script>
 <script type="text/javascript" src="js/Hyperlapse.js"></script>
@@ -461,7 +491,10 @@
 <div id="Tour" style="display: inline;padding-left: 10px">
 <span id="toursel">Select a tour : </span>
 
-<select  id="tourName"style="font-size: 18px;font-family: sans-serif,arial; margin-left: 10px"><option value="1" >Golden Gate Bridge</option></select>
+<select  id="tourName"style="font-size: 18px;font-family: sans-serif,arial; margin-left: 10px">
+<option value="0" >Golden Gate Bridge,America</option>
+<option value="1" >Borough Market,London</option>
+</select>
 </div>
 <div id="Travel" style="display: inline;padding-left: 15px">
 <span id="toursel">Travel By : </span>
@@ -477,12 +510,12 @@
 <option  >English</option>
 <option  >Others</option></select>
 </div>
-<input type="button" value="Visit" id="sub"  style="font-size: 18px;font-family: sans-serif,arial;" >
+<input type="button" value="Visit" id="sub" onclick="loadPage2()" style="font-size: 18px;font-family: sans-serif,arial;" >
 </div>
 </div>
  <div id="tourContent">	<div id="pano" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index:-1;"></div>
 	<div id="controls">
-		<div id="map" style="display:none; width: 400px; height: 300px; float: left; padding: 0;"></div>
+		<div id="map" style=" position:relative;top:10px;left:-18px;     width: 250px; height: 250px; float: right;border-style:solid;boborder-width:thick; ;border-color: #008080"></div>
 		<div id="controls" style="">
 			<form id="map_form" style="display: none">
 				<input type="text" name="address" id="address" />

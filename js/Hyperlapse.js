@@ -161,6 +161,35 @@ var Hyperlapse = function(container, params) {
 	 * @event Hyperlapse#onPlay
 	 */
 	var handlePlay = function (e) { if (self.onPlay) self.onPlay(e); };
+	
+	var playSound=function(){
+	    /*console.log("Enter into fucion");	    
+
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		xmlhttp.onreadystatechange=function()
+		  {
+	        console.log("Enter state"+xmlhttp.readyState+"status"+xmlhttp.status);	    
+	        alert(xmlhttp.responseXML);
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		    {
+	         console.log("Enter success");	    
+		    document.getElementById("sound").innerHTML=xmlDoc;
+		    }
+		  }
+		xmlhttp.open("GET","http://media.tts-api.com/806d537a093238323eaf458c94e4829dcb1beb3a.mp3",true);
+		xmlhttp.send();
+	    console.log(" successfully send");	*/ 
+		
+		window.open('http://media.tts-api.com/806d537a093238323eaf458c94e4829dcb1beb3a.mp3', '_blank', 'toolbar=0,location=0,menubar=0,width=400,Height=300');
+		};
 
 	/**
 	 * @event Hyperlapse#onPause
@@ -253,6 +282,7 @@ var Hyperlapse = function(container, params) {
 		document.getElementById("overlay").style.display="none";
 		document.getElementById("text").style.display="none";
 		document.getElementsByClassName("dg ac")[0].style.display="block";
+		window.open('http://media.tts-api.com/806d537a093238323eaf458c94e4829dcb1beb3a.mp3', '_blank', 'toolbar=0,location=0,menubar=0,width=400,Height=300');
 
 
 		_is_loading = false;
@@ -261,7 +291,6 @@ var Hyperlapse = function(container, params) {
 		animate();
 		if(!_is_loading) {
 			console.log("Entered the play");
-			playSound({});
             
 			_is_playing = true;
 			
@@ -794,34 +823,7 @@ var Hyperlapse = function(container, params) {
 			drawMaterial();
 		}
 	};
-var playSound=function(){
-    /*console.log("Enter into fucion");	    
 
-	var xmlhttp;
-	if (window.XMLHttpRequest)
-	  {// code for IE7+, Firefox, Chrome, Opera, Safari
-	  xmlhttp=new XMLHttpRequest();
-	  }
-	else
-	  {// code for IE6, IE5
-	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-	  }
-	xmlhttp.onreadystatechange=function()
-	  {
-        console.log("Enter state"+xmlhttp.readyState+"status"+xmlhttp.status);	    
-        alert(xmlhttp.responseXML);
-	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-	    {
-         console.log("Enter success");	    
-	    document.getElementById("sound").innerHTML=xmlDoc;
-	    }
-	  }
-	xmlhttp.open("GET","http://media.tts-api.com/806d537a093238323eaf458c94e4829dcb1beb3a.mp3",true);
-	xmlhttp.send();
-    console.log(" successfully send");	*/ 
-	
-	window.open('http://media.tts-api.com/806d537a093238323eaf458c94e4829dcb1beb3a.mp3', '_blank', 'toolbar=0,location=0,menubar=0,width=400,Height=300');
-	};
 	/**
 	 * Display previous frame in sequence
 	 * @fires Hyperlapse#onFrame
