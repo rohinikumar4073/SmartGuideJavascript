@@ -147,7 +147,7 @@
 			var hyperlapse = new Hyperlapse(pano, {
 				lookat: lookat_point,
 				fov: 80,
-				millis: 500,
+				millis: 50,
 				width: window.innerWidth,
 				height: window.innerHeight,
 				zoom: 2,
@@ -250,7 +250,7 @@
 				fov: 80, 
 				elevation:Math.floor(_elevation), 
 				tilt:0, 
-				millis:500, 
+				millis:50, 
 				offset_x:0,
 				offset_y:0,
 				offset_z:0,
@@ -312,40 +312,40 @@
 				}
 			};
 
-/* 
-			var scn = gui.addFolder('screen');
+
+	/* 		var scn = gui.addFolder('screen');
 			scn.add(o, 'screen_width', window.innerHeight).listen();
 			scn.add(o, 'screen_height', window.innerHeight).listen();
-
+ */
 			var parameters = gui.addFolder('parameters');
 
-			var distance_between_points_control = parameters.add(o, 'distance_between_points', 5, 100);
+/* 			var distance_between_points_control = parameters.add(o, 'distance_between_points', 5, 100);
 			distance_between_points_control.onChange(function(value) {
 				hyperlapse.setDistanceBetweenPoint(value);
 			});
 
-			var max_points = parameters.add(o, 'max_points', 10, 300);
+ */	/* 		var max_points = parameters.add(o, 'max_points', 10, 300);
 			max_points.onChange(function(value) {
 				hyperlapse.setMaxPoints(value);
 			});
-
+ */
 			var fov_control = parameters.add(o, 'fov', 1, 180);
 			fov_control.onChange(function(value) {
 				hyperlapse.setFOV(value);
 			});
-
+/* 
 			var pitch_control = parameters.add(o, 'elevation', -1000, 1000);
 			pitch_control.onChange(function(value) {
 				_elevation = value;
 				hyperlapse.elevation_offset = value;
 				changeHash();
 			});
-
-			var millis_control = parameters.add(o, 'millis', 10, 250);
+ */
+			var millis_control = parameters.add(o, 'millis', 0, 100);
 			millis_control.onChange(function(value) {
-				hyperlapse.millis = value;
+				hyperlapse.millis = (1000-(value*10))+10;
 			});
-
+/* 
 			var offset_x_control = parameters.add(o, 'offset_x', -360, 360);
 			offset_x_control.onChange(function(value) {
 				hyperlapse.offset.x = value;
@@ -360,7 +360,7 @@
 			offset_z_control.onChange(function(value) {
 				hyperlapse.offset.z = value;
 			});
-
+ */
 			var position_x_control = parameters.add(o, 'position_x', -360, 360).listen();
 			position_x_control.onChange(function(value) {
 				hyperlapse.position.x = value;
@@ -376,20 +376,20 @@
 				hyperlapse.tilt = value;
 			});
 
-			var lookat_control = parameters.add(o, 'use_lookat')
+	/* 		var lookat_control = parameters.add(o, 'use_lookat')
 			lookat_control.onChange(function(value) {
 				hyperlapse.use_lookat = value;
 			});
-
-			parameters.open(); */
+ */
+			parameters.open(); 
 			
 
 			var play_controls = gui.addFolder('play controls');
 			play_controls.add(hyperlapse, 'play');
 			play_controls.add(hyperlapse, 'pause');
-			play_controls.add(hyperlapse, 'next');
+	/* 		play_controls.add(hyperlapse, 'next');
 			play_controls.add(hyperlapse, 'prev');
-			play_controls.open();
+	 */		play_controls.open();
 
 /* 			gui.add(o, 'drop_pins');
 			gui.add(o, 'generate');
@@ -437,7 +437,7 @@
 				} else if (option == 2) {
 					hyperlapse.millis = 500;
 				} else if (option == 1) {
-					hyperlapse.millis = 250;
+					hyperlapse.millis = 100;
 				}
 			}
 			function loadPage() {
@@ -447,18 +447,14 @@
 				} else if (option == 2) {
 					hyperlapse.millis = 500;
 				} else if (option == 1) {
-					hyperlapse.millis = 250;
+					hyperlapse.millis = 100;
 				}
 				
 				document.getElementById("tourContent").style.display = "block";
 				document.getElementById("overlay").style.display = "block";
 				
 			}
-			function playSound(){
-			    
-				
-				window.open('http://media.tts-api.com/806d537a093238323eaf458c94e4829dcb1beb3a.mp3', '_blank', 'toolbar=0,location=0,menubar=0,width=400,Height=300');
-				}
+			
 		}
 
 		//window.onload = init;
@@ -493,8 +489,8 @@
 
 <select  id="tourName"style="font-size: 18px;font-family: sans-serif,arial; margin-left: 10px">
 <option value="0" >Golden Gate Bridge,America</option>
-<option value="1" >Borough Market,London</option>
-</select>
+<!-- <option value="1" >Borough Market,London</option>
+ --></select>
 </div>
 <div id="Travel" style="display: inline;padding-left: 15px">
 <span id="toursel">Travel By : </span>

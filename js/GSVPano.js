@@ -66,7 +66,7 @@ GSVPANO.PanoLoader = function (parameters) {
 	this.composePanorama = function (panoId) {
 	
 		this.setProgress(0);
-		console.log('Loading panorama for zoom ' + _zoom + '...');
+		//console.log('Loading panorama for zoom ' + _zoom + '...');
 		
 		var w = (_zoom==3) ? 7 : Math.pow(2, _zoom),
 			h = Math.pow(2, _zoom - 1),
@@ -80,7 +80,9 @@ GSVPANO.PanoLoader = function (parameters) {
 	
 		for( y = 0; y < h; y++) {
 			for( x = 0; x < w; x++) {
-				url = 'http://maps.google.com/cbk?output=tile&panoid=' + panoId + '&zoom=' + _zoom + '&x=' + x + '&y=' + y + '&' + Date.now();
+			//	url = 'http://maps.google.com/cbk?output=tile&panoid=' + panoId + '&zoom=' + _zoom + '&x=' + x + '&y=' + y + '&' + Date.now();
+				url='img/'+panoId+"_"+x+"_"+y+"_"+'.jpg';
+				console.log(url);
 				(function (x, y) { 
 					var img = new Image();
 					img.addEventListener('load', function () {

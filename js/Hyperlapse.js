@@ -161,35 +161,8 @@ var Hyperlapse = function(container, params) {
 	 * @event Hyperlapse#onPlay
 	 */
 	var handlePlay = function (e) { if (self.onPlay) self.onPlay(e); };
-	
-	var playSound=function(){
-	    /*console.log("Enter into fucion");	    
 
-		var xmlhttp;
-		if (window.XMLHttpRequest)
-		  {// code for IE7+, Firefox, Chrome, Opera, Safari
-		  xmlhttp=new XMLHttpRequest();
-		  }
-		else
-		  {// code for IE6, IE5
-		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		  }
-		xmlhttp.onreadystatechange=function()
-		  {
-	        console.log("Enter state"+xmlhttp.readyState+"status"+xmlhttp.status);	    
-	        alert(xmlhttp.responseXML);
-		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-		    {
-	         console.log("Enter success");	    
-		    document.getElementById("sound").innerHTML=xmlDoc;
-		    }
-		  }
-		xmlhttp.open("GET","http://media.tts-api.com/806d537a093238323eaf458c94e4829dcb1beb3a.mp3",true);
-		xmlhttp.send();
-	    console.log(" successfully send");	*/ 
-		
-		window.open('http://media.tts-api.com/806d537a093238323eaf458c94e4829dcb1beb3a.mp3', '_blank', 'toolbar=0,location=0,menubar=0,width=400,Height=300');
-		};
+	
 
 	/**
 	 * @event Hyperlapse#onPause
@@ -274,7 +247,8 @@ var Hyperlapse = function(container, params) {
  	 * @param {Number} e.position
 	 */
 	var handleLoadProgress = function (e) { if (self.onLoadProgress) self.onLoadProgress(e); };
-
+	var sound = new Audio("http://media.tts-api.com/74ea238b126699279bb7647db2a26b814d6ada85.mp3");
+	sound.preload = 'auto';
 	/**
 	 * @event Hyperlapse#onLoadComplete
 	 */
@@ -282,8 +256,10 @@ var Hyperlapse = function(container, params) {
 		document.getElementById("overlay").style.display="none";
 		document.getElementById("text").style.display="none";
 		document.getElementsByClassName("dg ac")[0].style.display="block";
-		window.open('http://media.tts-api.com/806d537a093238323eaf458c94e4829dcb1beb3a.mp3', '_blank', 'toolbar=0,location=0,menubar=0,width=400,Height=300');
 
+		
+	sound.load();		
+	sound.play();
 
 		_is_loading = false;
 		_point_index = 0;
@@ -293,7 +269,6 @@ var Hyperlapse = function(container, params) {
 			console.log("Entered the play");
             
 			_is_playing = true;
-			
 			
 			handlePlay({});
 		}		if (self.onLoadComplete) self.onLoadComplete(e);
@@ -793,10 +768,9 @@ var Hyperlapse = function(container, params) {
 	this.play = function() {
 		if(!_is_loading) {
 			console.log("Entered the play");
-			playSound({});
             
 			_is_playing = true;
-			
+			sound.play();
 			
 			handlePlay({});
 		}
@@ -808,6 +782,7 @@ var Hyperlapse = function(container, params) {
 	 */
 	this.pause = function() {
 		_is_playing = false;
+		sound.pause();
 		handlePause({});
 	};
 
